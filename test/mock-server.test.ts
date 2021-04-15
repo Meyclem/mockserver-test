@@ -56,7 +56,7 @@ describe("Mock Server", () => {
     });
   });
 
-  describe.only("Addresses domain's happy paths", () => {
+  describe("Addresses domain's happy paths", () => {
     describe("GET /users/me/addresses", () => {
       it("Should respond with a 200", async () => {
         expect.assertions(2);
