@@ -4,11 +4,14 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "start:mockserver": "docker run --init --rm -v $(pwd):/tmp -p 4010:4010 stoplight/prism:4 mock -h 0.0.0.0 \"/tmp/openapi.yml\"",
-    "lint": "eslint --ext ts . --fix",
     "build": "rm -rf build && tsc",
-    "generate-connect-profile-client": "docker run --rm -v ${PWD}/:/local openapitools/openapi-generator-cli generate --input-spec /local/openapi.yml --generator-name typescript-axios --additional-properties supportsES6=true --output /local/connect-profile-client"
+    "check-style": "yarn eslint src/**/*.ts test/**/*.ts",
+    "generate-connect-profile-client": "docker run --rm -v ${PWD}/:/local openapitools/openapi-generator-cli generate --input-spec /local/openapi.yml --generator-name typescript-axios --additional-properties supportsES6=true --output /local/connect-profile-client",
+    "lint": "eslint --ext ts . --fix",
+    "start:mockserver": "docker run --init --rm -v $(pwd):/tmp -p 4010:4010 stoplight/prism:4 mock -h 0.0.0.0 \"/tmp/openapi.yml\"",
+    "start": "ts-node src/index.ts",
+    "test": "jest"
+
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",

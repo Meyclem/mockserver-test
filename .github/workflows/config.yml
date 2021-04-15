@@ -1,0 +1,25 @@
+name: CI
+
+on: pull_request
+
+jobs:
+  tests-with-mock-server:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install-dependencies
+        if: steps.connect-profile-yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - name: eslint-check-style
+        run: yarn check-style
+
+      - name: start-mock-server
+        run: docker run --detach --init --rm -v $(pwd):/tmp -p 4010:4010 stoplight/prism:4 mock -h 0.0.0.0 "/tmp/openapi.yml"
+
+      - name: integration-tests
+        run: yarn test
